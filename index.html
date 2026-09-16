@@ -5,14 +5,13 @@
 <title>Choosing the Right Model</title>
 <style>
   :root{
-    --bg: #0B0B0D;
-    --surface: #16161A;
-    --surface-2: #1D1D22;
-    --line: rgba(255,255,255,0.08);
-    --text: #F2F1EE;
-    --text-dim: #9B9AA3;
-    --text-faint: #6B6A73;
-    --accent: #E8664A;
+    --bg: #FAF7F2;
+    --surface: #FFFFFF;
+    --surface-2: #F4EFE7;
+    --line: rgba(28,27,26,0.09);
+    --text: #1C1B1A;
+    --text-dim: #6E6A63;
+    --text-faint: #A6A198;
     --unit: 8px;
   }
   *{ box-sizing: border-box; }
@@ -22,6 +21,9 @@
     color: var(--text);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
+  }
+  .serif{
+    font-family: "Iowan Old Style", "Palatino Linotype", Palatino, "Georgia", serif;
   }
   .page{
     max-width: 1120px;
@@ -43,20 +45,20 @@
     font-size: 12px;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--accent);
+    color: #B8511F;
     font-weight: 700;
     margin: 0 0 12px;
   }
   h1{
-    font-size: 40px;
-    line-height: 1.08;
+    font-size: 42px;
+    line-height: 1.12;
     letter-spacing: -0.01em;
     margin: 0;
-    font-weight: 700;
+    font-weight: 500;
     max-width: 560px;
   }
   header p{
-    max-width: 300px;
+    max-width: 280px;
     color: var(--text-dim);
     font-size: 14px;
     line-height: 1.6;
@@ -64,115 +66,156 @@
     text-align: right;
   }
 
-  /* ---------- Focal card (the "chosen" model) ---------- */
-  .focal-wrap{
-    margin-bottom: 40px;
-  }
-  .focal-hint{
+  /* ---------- Tab row (model selector) ---------- */
+  .tabs-label{
     font-size: 11px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--text-faint);
     margin: 0 0 16px;
   }
+  .tabs{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+  .tab{
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    text-align: left;
+    transition: border-color .15s ease, background .15s ease, transform .15s ease;
+  }
+  .tab:hover{ transform: translateY(-2px); }
+  .tab.active{
+    border-color: var(--tab-accent);
+    background: var(--tab-tint);
+  }
+  .tab-plate{
+    width: 40px; height: 40px;
+    border-radius: 8px;
+    background: #FFFFFF;
+    border: 1px solid var(--line);
+    flex-shrink: 0;
+    display:flex; align-items:center; justify-content:center;
+    overflow: hidden;
+    padding: 4px;
+  }
+  .tab-plate img{ width: 100%; height: 100%; object-fit: contain; }
+  .tab-text{ min-width: 0; }
+  .tab-name{
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .tab-provider{
+    font-size: 9.5px;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 1px;
+  }
+
+  /* ---------- Focal card ---------- */
   .focal{
     display: grid;
-    grid-template-columns: 280px 1fr;
-    gap: 32px;
+    grid-template-columns: 1fr 2fr;
+    gap: 0;
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: 20px;
-    padding: 28px;
-    position: relative;
     overflow: hidden;
-    transition: box-shadow .3s ease, border-color .3s ease;
-  }
-  .focal::before{
-    content:"";
-    position:absolute;
-    top:0; left:0; right:0;
-    height: 4px;
-    background: var(--focal-accent, var(--accent));
+    box-shadow: 0 24px 48px -32px rgba(28,27,26,0.18);
   }
   .focal-art{
-    background: var(--surface-2);
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    padding: 20px;
+    background: var(--focal-tint);
+    padding: 40px 32px;
     display:flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 14px;
+    gap: 18px;
     text-align: center;
     position: relative;
+    border-right: 1px solid var(--line);
   }
   .focal-num{
     position: absolute;
-    top: 14px; left: 16px;
+    top: 20px; left: 24px;
     font-size: 11px;
     color: var(--text-faint);
     letter-spacing: 0.05em;
   }
-  .focal-mark{
-    width: 96px; height: 96px;
-    border-radius: 20px;
-    background: var(--surface);
+  .focal-plate{
+    width: 100%;
+    max-width: 180px;
+    height: 110px;
+    border-radius: 14px;
+    background: #FFFFFF;
+    border: 1.5px solid var(--focal-accent);
     display:flex; align-items:center; justify-content:center;
-    font-size: 34px;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    color: var(--focal-accent, var(--accent));
-    box-shadow: 0 0 0 1px var(--line), 0 20px 40px -20px rgba(0,0,0,0.6);
+    padding: 16px;
+    box-shadow: 0 12px 24px -16px rgba(28,27,26,0.25);
   }
+  .focal-plate img{ width: 100%; height: 100%; object-fit: contain; }
   .focal-art h2{
     margin: 0;
-    font-size: 20px;
-    font-weight: 700;
+    font-size: 24px;
+    font-weight: 500;
   }
   .focal-art .provider{
     font-size: 11px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--text-faint);
+    margin-top: -10px;
   }
   .focal-band{
-    margin-top: 4px;
     font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.03em;
     text-transform: uppercase;
-    color: var(--focal-accent, var(--accent));
-    background: rgba(255,255,255,0.04);
+    color: var(--focal-accent);
+    background: #FFFFFF;
+    border: 1px solid var(--line);
     border-radius: 999px;
-    padding: 6px 14px;
+    padding: 6px 16px;
   }
 
   .focal-body{
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 24px;
     min-width: 0;
+    padding: 40px 40px 40px 36px;
   }
   .focal-desc{
     margin: 0;
-    font-size: 14px;
-    line-height: 1.65;
-    color: var(--text-dim);
-    background: var(--surface-2);
-    border: 1px solid var(--line);
-    border-radius: 10px;
-    padding: 14px 16px;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text);
+    padding: 0 0 24px;
+    border-bottom: 1px solid var(--line);
   }
   .attrs{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 14px 24px;
+    gap: 24px 32px;
   }
   .attr{
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
   }
   .attr-label{
     font-size: 10.5px;
@@ -190,130 +233,21 @@
     flex: 1;
     height: 8px;
     border-radius: 3px;
-    background: rgba(255,255,255,0.08);
-  }
-  .attr-blocks span.on{ background: var(--focal-accent, var(--accent)); }
-  .attr.files .attr-value{
-    font-size: 13px;
-    font-weight: 700;
-  }
-  .attr.files .attr-value.yes{ color: #6FCF97; }
-  .attr.files .attr-value.no{ color: var(--text-faint); }
-  .attr.power .attr-value{
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--text);
-  }
-
-  /* ---------- Deck (the row of selectable cards) ---------- */
-  .deck-label{
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-faint);
-    margin: 0 0 16px;
-  }
-  .deck{
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 16px;
-  }
-  .pcard{
-    background: var(--surface);
-    border: 2px solid var(--line);
-    border-radius: 14px;
-    padding: 14px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    aspect-ratio: 5 / 7;
-    cursor: pointer;
-    position: relative;
-    transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease;
-  }
-  .pcard:hover{
-    transform: translateY(-4px);
-    border-color: var(--card-accent, var(--accent));
-  }
-  .pcard.active{
-    border-color: var(--card-accent, var(--accent));
-    box-shadow: 0 0 0 3px rgba(255,255,255,0.04), 0 16px 32px -18px var(--card-accent, var(--accent));
-    transform: translateY(-4px);
-  }
-  .pcard-top{
-    display:flex;
-    justify-content: space-between;
-    align-items: flex-start;
-  }
-  .pcard-name{
-    font-size: 12.5px;
-    font-weight: 700;
-    line-height: 1.2;
-  }
-  .pcard-provider{
-    font-size: 9px;
-    color: var(--text-faint);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-top: 2px;
-  }
-  .pcard-pwr{
-    font-size: 10px;
-    font-weight: 800;
-    color: var(--card-accent, var(--accent));
-    background: rgba(255,255,255,0.05);
-    border-radius: 6px;
-    padding: 2px 6px;
-    white-space: nowrap;
-  }
-  .pcard-art{
-    flex: 1;
     background: var(--surface-2);
-    border-radius: 10px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size: 30px;
-    font-weight: 800;
-    color: var(--card-accent, var(--accent));
   }
-  .pcard-band{
-    font-size: 9.5px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    color: var(--card-accent, var(--accent));
-    text-align: center;
+  .attr-blocks span.on{ background: var(--focal-accent); }
+  .attr.files .attr-value{
+    font-size: 13.5px;
+    font-weight: 600;
   }
-  .pcard-pips{
-    display:flex;
-    justify-content: center;
-    gap: 3px;
-  }
-  .pcard-pips span{
-    width: 7px; height: 7px;
-    border-radius: 2px;
-    background: rgba(255,255,255,0.08);
-  }
-  .pcard-pips span.on{ background: var(--card-accent, var(--accent)); }
-  .pcard-active-tag{
-    position: absolute;
-    top: -9px; right: 12px;
-    font-size: 9px;
-    font-weight: 800;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    background: var(--card-accent, var(--accent));
-    color: #0B0B0D;
-    padding: 3px 8px;
-    border-radius: 999px;
-  }
+  .attr.files .attr-value.yes{ color: #3F7A3D; }
+  .attr.files .attr-value.no{ color: var(--text-faint); }
 
   /* ---------- Legend / footer ---------- */
   .legend{
     margin-top: 56px;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 24px;
     padding-top: 32px;
     border-top: 1px solid var(--line);
@@ -324,10 +258,10 @@
     align-items: flex-start;
   }
   .legend-item .dot{
-    width: 9px; height: 9px;
+    width: 8px; height: 8px;
     border-radius: 2px;
-    background: var(--accent);
-    margin-top: 4px;
+    background: #B8511F;
+    margin-top: 5px;
     flex-shrink: 0;
   }
   .legend-item h4{
@@ -343,8 +277,10 @@
   }
 
   @media (max-width: 900px){
-    .deck{ grid-template-columns: repeat(2, 1fr); }
+    .tabs{ grid-template-columns: repeat(2, 1fr); }
     .focal{ grid-template-columns: 1fr; }
+    .focal-art{ border-right: none; border-bottom: 1px solid var(--line); }
+    .focal-body{ padding: 32px; }
     .attrs{ grid-template-columns: 1fr; }
     .legend{ grid-template-columns: 1fr; }
     header{ flex-direction: column; align-items: flex-start; }
@@ -358,50 +294,25 @@
   <header>
     <div>
       <p class="kicker">Model Guide</p>
-      <h1>Five models, five jobs. Pick by what you're doing, not the name.</h1>
+      <h1 class="serif">Five models, five jobs. Pick by what you're doing, not the name.</h1>
     </div>
     <p>A quick-reference guide for choosing the right AI model without needing to know the technical details.</p>
   </header>
 
-  <div class="focal-wrap">
-    <p class="focal-hint">Selected model</p>
-    <div class="focal" id="focal"></div>
-  </div>
+  <p class="tabs-label">Choose a model</p>
+  <div class="tabs" id="tabs"></div>
 
-  <p class="deck-label">Tap a card to inspect it</p>
-  <div class="deck" id="deck"></div>
+  <div class="focal" id="focal"></div>
 
-  <div class="legend">
-    <div class="legend-item">
-      <div class="dot"></div>
-      <div>
-        <h4>Reasoning Depth</h4>
-        <p>How well the model handles complex, multi-step thinking — more blocks means it can untangle harder problems.</p>
-      </div>
-    </div>
-    <div class="legend-item">
-      <div class="dot"></div>
-      <div>
-        <h4>Response Speed</h4>
-        <p>How quickly you get an answer — more blocks means less waiting, which matters for quick back-and-forth chat.</p>
-      </div>
-    </div>
-    <div class="legend-item">
-      <div class="dot"></div>
-      <div>
-        <h4>Handles Your Files</h4>
-        <p>Whether you can upload documents, spreadsheets, or images for the model to read and work from directly.</p>
-      </div>
-    </div>
-  </div>
+  <div class="legend" id="legend"></div>
 
 </div>
 
 <script>
-function blocks(value, total, cls){
+function blocks(value, total){
   let html = "";
   for (let i = 0; i < total; i++){
-    html += `<span class="${i < value ? (cls || 'on') : ''}"></span>`;
+    html += `<span class="${i < value ? 'on' : ''}"></span>`;
   }
   return html;
 }
@@ -411,52 +322,65 @@ const MODELS = [
     id: "sonnet5", name: "Claude 5 Sonnet", provider: "Anthropic",
     tagline: "The Reliable Everyday Choice",
     desc: "Handles uploaded files well — spreadsheets, attached code, documents. Best for everyday tasks needing solid, multi-step reasoning without the wait of a flagship model.",
-    mark: "C", accent: "#E8664A",
-    reasoning: 3, speed: 4, files: true, spectrum: 62,
+    logo: "assets/claude.jpg",
+    accent: "#B8511F", tint: "#F7E0D2",
+    reasoning: 3, speed: 4, files: true, power: 62,
   },
   {
     id: "opus48", name: "Claude Opus 4.8", provider: "Anthropic",
     tagline: "The Powerhouse", hero: true,
     desc: "Built for your most complex, high-stakes work — deep financial analysis, comparing massive multi-file documents. Choose it when accuracy matters more than speed.",
-    mark: "C", accent: "#E8664A",
-    reasoning: 5, speed: 2, files: true, spectrum: 92,
+    logo: "assets/claude.jpg",
+    accent: "#9C3F17", tint: "#F1C7AC",
+    reasoning: 5, speed: 2, files: true, power: 92,
   },
   {
     id: "gptoss120", name: "GPT-OSS 120B", provider: "OpenAI",
     tagline: "The Deep Thinker",
     desc: "Excels at advanced, text-only reasoning and complex problem-solving — brainstorming, drafting intricate reports, generating code from a prompt. No file uploads.",
-    mark: "G", accent: "#B7B7BE",
-    reasoning: 4, speed: 3, files: false, spectrum: 74,
+    logo: "assets/gptoss.jpg",
+    accent: "#433F52", tint: "#E2DCEC",
+    reasoning: 4, speed: 3, files: false, power: 74,
   },
   {
     id: "gptoss20", name: "GPT-OSS 20B", provider: "OpenAI",
     tagline: "The Quick Chat",
     desc: "Optimized for fast, logical text tasks — drafting messages, structuring notes, quick questions. High-speed reasoning without file handling.",
-    mark: "G", accent: "#B7B7BE",
-    reasoning: 2, speed: 5, files: false, spectrum: 28,
+    logo: "assets/gptoss.jpg",
+    accent: "#5B5568", tint: "#EDEAF2",
+    reasoning: 2, speed: 5, files: false, power: 28,
   },
   {
     id: "nemotron", name: "Nemotron 3 Super 120B", provider: "NVIDIA",
     tagline: "The Instant Reply",
     desc: "Rapid, direct text generation with no multi-step reasoning or file support. Best for simple classification, formatting, or standard boilerplate — pure speed.",
-    mark: "N", accent: "#76B900",
-    reasoning: 1, speed: 5, files: false, spectrum: 10,
+    logo: "assets/nemotron.jpg",
+    accent: "#4C7A2E", tint: "#DCEEC9",
+    reasoning: 1, speed: 5, files: false, power: 10,
   },
 ];
 
-const deck = document.getElementById("deck");
+const LEGEND = [
+  { title: "Reasoning Depth", body: "How well the model handles complex, multi-step thinking — more blocks means it can untangle harder problems." },
+  { title: "Response Speed", body: "How quickly you get an answer — more blocks means less waiting, which matters for quick back-and-forth chat." },
+  { title: "Handles Your Files", body: "Whether you can upload documents, spreadsheets, or images for the model to read and work from directly." },
+  { title: "Power Level", body: "A blended score of reasoning and speed — higher means a more broadly capable model overall, not always the right pick for a quick task." },
+];
+
+const tabs = document.getElementById("tabs");
 const focal = document.getElementById("focal");
+const legend = document.getElementById("legend");
 let activeId = (MODELS.find(m => m.hero) || MODELS[0]).id;
 
 function renderFocal(){
   const m = MODELS.find(x => x.id === activeId);
   focal.style.setProperty("--focal-accent", m.accent);
-  const power = Math.round(m.spectrum);
+  focal.style.setProperty("--focal-tint", m.tint);
   focal.innerHTML = `
     <div class="focal-art">
       <span class="focal-num">No. ${String(MODELS.indexOf(m)+1).padStart(2,'0')}</span>
-      <div class="focal-mark">${m.mark}</div>
-      <h2>${m.name}</h2>
+      <div class="focal-plate"><img src="${m.logo}" alt="${m.provider} logo"></div>
+      <h2 class="serif">${m.name}</h2>
       <div class="provider">${m.provider}</div>
       <div class="focal-band">${m.tagline}</div>
     </div>
@@ -476,44 +400,52 @@ function renderFocal(){
           <span class="attr-value ${m.files ? 'yes' : 'no'}">${m.files ? "Yes — uploads supported" : "No — text only"}</span>
         </div>
         <div class="attr power">
-          <span class="attr-label"><span>Power Level</span><span>${power}/100</span></span>
-          <div class="attr-blocks">${blocks(Math.round(power/20), 5)}</div>
+          <span class="attr-label"><span>Power Level</span><span>${m.power}/100</span></span>
+          <div class="attr-blocks">${blocks(Math.round(m.power/20), 5)}</div>
         </div>
       </div>
     </div>
   `;
 }
 
-function renderDeck(){
-  deck.innerHTML = "";
-  MODELS.forEach((m, i) => {
-    const card = document.createElement("div");
-    card.className = "pcard" + (m.id === activeId ? " active" : "");
-    card.style.setProperty("--card-accent", m.accent);
-    card.innerHTML = `
-      ${m.id === activeId ? '<div class="pcard-active-tag">Active</div>' : ''}
-      <div class="pcard-top">
-        <div>
-          <div class="pcard-name">${m.name}</div>
-          <div class="pcard-provider">${m.provider}</div>
-        </div>
-        <div class="pcard-pwr">${m.spectrum}</div>
+function renderTabs(){
+  tabs.innerHTML = "";
+  MODELS.forEach(m => {
+    const tab = document.createElement("button");
+    tab.className = "tab" + (m.id === activeId ? " active" : "");
+    tab.style.setProperty("--tab-accent", m.accent);
+    tab.style.setProperty("--tab-tint", m.tint);
+    tab.innerHTML = `
+      <div class="tab-plate"><img src="${m.logo}" alt="${m.provider} logo"></div>
+      <div class="tab-text">
+        <div class="tab-name">${m.name}</div>
+        <div class="tab-provider">${m.provider}</div>
       </div>
-      <div class="pcard-art">${m.mark}</div>
-      <div class="pcard-band">${m.tagline}</div>
-      <div class="pcard-pips">${blocks(m.reasoning, 5)}</div>
     `;
-    card.addEventListener("click", () => {
+    tab.addEventListener("click", () => {
       activeId = m.id;
       renderFocal();
-      renderDeck();
+      renderTabs();
     });
-    deck.appendChild(card);
+    tabs.appendChild(tab);
   });
 }
 
+function renderLegend(){
+  legend.innerHTML = LEGEND.map(item => `
+    <div class="legend-item">
+      <div class="dot"></div>
+      <div>
+        <h4>${item.title}</h4>
+        <p>${item.body}</p>
+      </div>
+    </div>
+  `).join("");
+}
+
 renderFocal();
-renderDeck();
+renderTabs();
+renderLegend();
 </script>
 
 </body>
