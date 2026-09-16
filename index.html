@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Choosing the Right Model</title>
+<style>
+  :root{
+    --bg: #0B0B0D;
+    --surface: #16161A;
+    --surface-2: #1D1D22;
+    --line: rgba(255,255,255,0.08);
+    --text: #F2F1EE;
+    --text-dim: #9B9AA3;
+    --text-faint: #6B6A73;
+    --accent: #E8664A;
+    --unit: 8px;
+  }
+  *{ box-sizing: border-box; }
+  html,body{
+    margin:0; padding:0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page{
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 64px 40px 56px;
+  }
+
+  /* ---------- Header ---------- */
+  header{
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 56px;
+    gap: 24px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 32px;
+  }
+  .kicker{
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+    margin: 0 0 12px;
+  }
+  h1{
+    font-size: 40px;
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    margin: 0;
+    font-weight: 700;
+    max-width: 560px;
+  }
+  header p{
+    max-width: 300px;
+    color: var(--text-dim);
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0;
+    text-align: right;
+  }
+
+  /* ---------- Spectrum (hero element) ---------- */
+  .spectrum{
+    margin-bottom: 88px;
+  }
+  .spectrum-label{
+    display:flex;
+    justify-content: space-between;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 16px;
+  }
+  .spectrum-track{
+    position: relative;
+    height: 3px;
+    background: linear-gradient(90deg, #4C9AFF 0%, var(--surface-2) 45%, var(--accent) 100%);
+    border-radius: 2px;
+    margin: 0 6px;
+  }
+  .spectrum-dot{
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 0 1px var(--line);
+  }
+  .spectrum-tag{
+    position: absolute;
+    top: 20px;
+    transform: translateX(-50%);
+    font-size: 11px;
+    color: var(--text-dim);
+    white-space: nowrap;
+    text-align: center;
+    line-height: 1.4;
+  }
+  .spectrum-tag b{ display:block; color: var(--text); font-size: 12px; font-weight: 600; }
+
+  /* ---------- Cards ---------- */
+  .grid{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+  }
+  .card{
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 24px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before{
+    content:"";
+    position:absolute;
+    top:0; left:0; right:0;
+    height: 2px;
+    background: var(--card-accent, var(--accent));
+  }
+  .card.hero{
+    background: var(--surface-2);
+    border-color: rgba(232,102,74,0.35);
+    box-shadow: 0 0 0 1px rgba(232,102,74,0.1), 0 20px 40px -20px rgba(232,102,74,0.25);
+  }
+  .icon-chip{
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    background: var(--surface-2);
+    display:flex; align-items:center; justify-content:center;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .card.hero .icon-chip{ background: var(--surface); }
+
+  .card h3{
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.005em;
+  }
+  .provider{
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-top: 2px;
+  }
+  .tagline{
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--card-accent, var(--accent));
+  }
+  .desc{
+    font-size: 12.5px;
+    line-height: 1.55;
+    color: var(--text-dim);
+    flex-grow: 1;
+    margin: 0;
+  }
+
+  .meters{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-top: 1px solid var(--line);
+    padding-top: 14px;
+  }
+  .meter-row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .meter-name{
+    font-size: 10px;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+  .meter-blocks{
+    display:flex;
+    gap: 3px;
+  }
+  .meter-blocks span{
+    width: 9px; height: 9px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.08);
+  }
+  .meter-blocks span.on{ background: var(--card-accent, var(--accent)); }
+
+  .files-row{
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    font-size: 10px;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .files-badge{
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+  .files-badge.yes{ color: #6FCF97; background: rgba(111,207,151,0.12); }
+  .files-badge.no{ color: var(--text-faint); background: rgba(255,255,255,0.05); }
+
+  /* ---------- Legend / footer ---------- */
+  .legend{
+    margin-top: 56px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+  }
+  .legend-item{
+    display:flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .legend-item .dot{
+    width: 9px; height: 9px;
+    border-radius: 2px;
+    background: var(--accent);
+    margin-top: 4px;
+    flex-shrink: 0;
+  }
+  .legend-item h4{
+    margin: 0 0 4px;
+    font-size: 12.5px;
+    font-weight: 700;
+  }
+  .legend-item p{
+    margin: 0;
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  @media (max-width: 900px){
+    .grid{ grid-template-columns: repeat(2, 1fr); }
+    .legend{ grid-template-columns: 1fr; }
+    header{ flex-direction: column; align-items: flex-start; }
+    header p{ text-align: left; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div>
+      <p class="kicker">Model Guide</p>
+      <h1>Five models, five jobs. Pick by what you're doing, not the name.</h1>
+    </div>
+    <p>A quick-reference guide for choosing the right AI model without needing to know the technical details.</p>
+  </header>
+
+  <div class="spectrum">
+    <div class="spectrum-label"><span>Fast &amp; Simple</span><span>Deep &amp; Powerful</span></div>
+    <div class="spectrum-track" id="track"></div>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <div class="legend">
+    <div class="legend-item">
+      <div class="dot"></div>
+      <div>
+        <h4>Reasoning Depth</h4>
+        <p>How well the model handles complex, multi-step thinking — more blocks means it can untangle harder problems.</p>
+      </div>
+    </div>
+    <div class="legend-item">
+      <div class="dot"></div>
+      <div>
+        <h4>Response Speed</h4>
+        <p>How quickly you get an answer — more blocks means less waiting, which matters for quick back-and-forth chat.</p>
+      </div>
+    </div>
+    <div class="legend-item">
+      <div class="dot"></div>
+      <div>
+        <h4>Handles Your Files</h4>
+        <p>Whether you can upload documents, spreadsheets, or images for the model to read and work from directly.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function meterBlocks(value, total){
+  let html = "";
+  for (let i = 0; i < total; i++){
+    html += `<span class="${i < value ? 'on' : ''}"></span>`;
+  }
+  return html;
+}
+
+const MODELS = [
+  {
+    id: "sonnet5", name: "Claude 5 Sonnet", provider: "Anthropic",
+    tagline: "The Reliable Everyday Choice",
+    desc: "Handles uploaded files well — spreadsheets, attached code, documents. Best for everyday tasks needing solid, multi-step reasoning without the wait of a flagship model.",
+    mark: "C", accent: "#E8664A",
+    reasoning: 3, speed: 4, files: true, spectrum: 62,
+  },
+  {
+    id: "opus48", name: "Claude Opus 4.8", provider: "Anthropic",
+    tagline: "The Powerhouse", hero: true,
+    desc: "Built for your most complex, high-stakes work — deep financial analysis, comparing massive multi-file documents. Choose it when accuracy matters more than speed.",
+    mark: "C", accent: "#E8664A",
+    reasoning: 5, speed: 2, files: true, spectrum: 92,
+  },
+  {
+    id: "gptoss120", name: "GPT-OSS 120B", provider: "OpenAI",
+    tagline: "The Deep Thinker",
+    desc: "Excels at advanced, text-only reasoning and complex problem-solving — brainstorming, drafting intricate reports, generating code from a prompt. No file uploads.",
+    mark: "G", accent: "#B7B7BE",
+    reasoning: 4, speed: 3, files: false, spectrum: 74,
+  },
+  {
+    id: "gptoss20", name: "GPT-OSS 20B", provider: "OpenAI",
+    tagline: "The Quick Chat",
+    desc: "Optimized for fast, logical text tasks — drafting messages, structuring notes, quick questions. High-speed reasoning without file handling.",
+    mark: "G", accent: "#B7B7BE",
+    reasoning: 2, speed: 5, files: false, spectrum: 28,
+  },
+  {
+    id: "nemotron", name: "Nemotron 3 Super 120B", provider: "NVIDIA",
+    tagline: "The Instant Reply",
+    desc: "Rapid, direct text generation with no multi-step reasoning or file support. Best for simple classification, formatting, or standard boilerplate — pure speed.",
+    mark: "N", accent: "#76B900",
+    reasoning: 1, speed: 5, files: false, spectrum: 10,
+  },
+];
+
+const grid = document.getElementById("grid");
+MODELS.forEach(m => {
+  const card = document.createElement("div");
+  card.className = "card" + (m.hero ? " hero" : "");
+  card.style.setProperty("--card-accent", m.accent);
+  card.innerHTML = `
+    <div class="icon-chip" style="color:${m.accent}">${m.mark}</div>
+    <div>
+      <h3>${m.name}</h3>
+      <div class="provider">${m.provider}</div>
+    </div>
+    <div class="tagline">${m.tagline}</div>
+    <p class="desc">${m.desc}</p>
+    <div class="meters">
+      <div class="meter-row">
+        <span class="meter-name">Reasoning</span>
+        <div class="meter-blocks">${meterBlocks(m.reasoning, 5)}</div>
+      </div>
+      <div class="meter-row">
+        <span class="meter-name">Speed</span>
+        <div class="meter-blocks">${meterBlocks(m.speed, 5)}</div>
+      </div>
+      <div class="files-row">
+        <span>Files</span>
+        <span class="files-badge ${m.files ? 'yes' : 'no'}">${m.files ? "Yes" : "No"}</span>
+      </div>
+    </div>
+  `;
+  grid.appendChild(card);
+});
+
+const track = document.getElementById("track");
+MODELS.forEach(m => {
+  const dot = document.createElement("div");
+  dot.className = "spectrum-dot";
+  dot.style.left = m.spectrum + "%";
+  dot.style.background = m.accent;
+  track.appendChild(dot);
+
+  const tag = document.createElement("div");
+  tag.className = "spectrum-tag";
+  tag.style.left = m.spectrum + "%";
+  tag.innerHTML = `<b>${m.name.split(" ").slice(-1)}</b>${m.provider}`;
+  track.appendChild(tag);
+});
+</script>
+
+</body>
+</html>
