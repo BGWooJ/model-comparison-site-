@@ -76,7 +76,7 @@
   }
   .tabs{
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 12px;
     margin-bottom: 40px;
   }
@@ -277,7 +277,7 @@
   }
 
   @media (max-width: 900px){
-    .tabs{ grid-template-columns: repeat(2, 1fr); }
+    .tabs{ grid-template-columns: repeat(3, 1fr); }
     .focal{ grid-template-columns: 1fr; }
     .focal-art{ border-right: none; border-bottom: 1px solid var(--line); }
     .focal-body{ padding: 32px; }
@@ -294,9 +294,9 @@
   <header>
     <div>
       <p class="kicker">Model Guide</p>
-      <h1 class="serif">Five models, five jobs. Pick by what you're doing, not the name.</h1>
+      <h1 class="serif">Seven models, seven jobs. Pick by what you're doing, not the name.</h1>
     </div>
-    <p>A quick-reference guide for choosing the right AI model without needing to know all of the technical details.</p>
+    <p>A quick-reference guide for choosing the right AI model without needing to know the technical details.</p>
   </header>
 
   <p class="tabs-label">Choose a model</p>
@@ -319,20 +319,28 @@ function blocks(value, total){
 
 const MODELS = [
   {
+    id: "fable51", name: "Claude Fable 5.1", provider: "Anthropic",
+    tagline: "The Flagship", hero: true,
+    desc: "The most capable model yet, with thinking on by default. Built for ambitious coding across entire codebases, multi-hour agent jobs across many tools, and best-in-class vision for dense filings, charts, and diagrams.",
+    logo: "assets/claude.jpg",
+    accent: "#7A2A0F", tint: "#EEC2A0",
+    reasoning: 5, speed: 1, files: true, power: 98,
+  },
+  {
+    id: "opus48", name: "Claude Opus 4.8", provider: "Anthropic",
+    tagline: "The Powerhouse",
+    desc: "Built for your most complex, high-stakes work — deep financial analysis, comparing massive multi-file documents. Choose it when accuracy matters more than speed.",
+    logo: "assets/claude.jpg",
+    accent: "#9C3F17", tint: "#F1C7AC",
+    reasoning: 5, speed: 2, files: true, power: 92,
+  },
+  {
     id: "sonnet5", name: "Claude 5 Sonnet", provider: "Anthropic",
     tagline: "The Reliable Everyday Choice",
     desc: "Handles uploaded files well — spreadsheets, attached code, documents. Best for everyday tasks needing solid, multi-step reasoning without the wait of a flagship model.",
     logo: "assets/claude.jpg",
     accent: "#B8511F", tint: "#F7E0D2",
     reasoning: 3, speed: 4, files: true, power: 62,
-  },
-  {
-    id: "opus48", name: "Claude Opus 4.8", provider: "Anthropic",
-    tagline: "The Powerhouse", hero: true,
-    desc: "Built for your most complex, high-stakes work — deep financial analysis, comparing massive multi-file documents. Choose it when accuracy matters more than speed.",
-    logo: "assets/claude.jpg",
-    accent: "#9C3F17", tint: "#F1C7AC",
-    reasoning: 5, speed: 2, files: true, power: 92,
   },
   {
     id: "gptoss120", name: "GPT-OSS 120B", provider: "OpenAI",
@@ -356,7 +364,15 @@ const MODELS = [
     desc: "Rapid, direct text generation with no multi-step reasoning or file support. Best for simple classification, formatting, or standard boilerplate — pure speed.",
     logo: "assets/nemotron.jpg",
     accent: "#4C7A2E", tint: "#DCEEC9",
-    reasoning: 1, speed: 5, files: false, power: 80,
+    reasoning: 1, speed: 5, files: false, power: 88,
+  },
+  {
+    id: "grok46", name: "Grok 4.6", provider: "xAI",
+    tagline: "The Heavyweight",
+    desc: "A text-only model with a massive parameter count — roughly 10x GPT-OSS 120B — and a 500k-token context window, between Claude and GPT-OSS in size. Built for deep reasoning over very long text, not for uploaded files.",
+    logo: "assets/grok.png",
+    accent: "#1C1B1A", tint: "#E7E4DD",
+    reasoning: 5, speed: 2, files: false, power: 90,
   },
 ];
 
